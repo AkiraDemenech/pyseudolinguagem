@@ -139,7 +139,7 @@ class var:
 			self.__iter__ = self.__value__.__iter__
 			self.__setitem__ = self.__value__.__setitem__
 		except AttributeError:
-			self.__setitem__ = self.__iter__ = None		
+			self.__setitem__ = self.__iter__ = None				
 		return v#self.__value__
 
 	def __str__ (self):
@@ -196,8 +196,8 @@ class var:
 	def __rand__ (self, x = True):
 		return self.__value__.__rand__(__valor__(x))
 
-	def __call__ (self, arg = 1):
-		return self.__mul__(arg);
+	def __call__ (self, *arg,**args):
+		return self.__value__.__call__(*arg,**args);
 
 	def __init__ (self,valor=None,copia=True):
 		if copia:
@@ -228,7 +228,7 @@ while __name__ == '__main__':#True:
 		print(escreva(ln))
 	except KeyboardInterrupt:
 	#	if 'S' == input('Gostaria de interromper novamente e sair?')[0].upper():
-		if 'S' in input('Gostaria de interromper novamente e sair?').upper():
+		if 'S' in input('Gostaria de interromper novamente e sair?<<<').upper():
 			break
 #	except RecursionError as re:
 #		raise re
