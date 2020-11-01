@@ -4,7 +4,7 @@
 		self.__
 		self.__getitem__ = '''
 
-booleanos = {None:("FALSO","VERDADEIRO")}
+booleanos =	{None:("FALSO","VERDADEIRO")}
 l = False
 while l < len(booleanos[None]):
 	l = l.__bool__()
@@ -59,8 +59,6 @@ def escreva (v):
 def copiar (v=None):
 	try:
 		v = v.__class__(__valor__(v))
-	#	if v.__class__ == var:
-	#		v.__valor__(copiar(v.__valor__()))
 		if v.__class__ == dict:
 			for c in v:
 				v[c] = copiar(v[c])
@@ -127,62 +125,56 @@ class var:
 				if type(v[com]) == dict:
 					v[com] = var(v[com],False)
 				self.__setattr__(com,v[com])
-	#			print(com,v[com])
-	#	while type(v) == dict:
-	#		self.__comprimento__.append(0)
-	#		for c in v:
-	#			self.__comprimento__[len(self.__comprimento__)-1]+=1
-	#		v = c
-	#	if self.__tipo__ == None:
-	#		self.__tipo__ = Tipos[type(v) == str]
-		try:
-			self.__iter__ = self.__value__.__iter__
-			self.__setitem__ = self.__value__.__setitem__
-		except AttributeError:
-			self.__setitem__ = self.__iter__ = None				
 		return v#self.__value__
 
 	def __str__ (self):
-	#	return self.__class__.__name__ + '(%s)' %self.__value__.__str__()
 		if self.__tipo__ == Logico:
 			return booleanos[self.__value__]
 		if self.__value__.__class__ != dict:
 			return self.__value__.__str__()
 		if self.__varia__:
 			return self.__repr__()	# se não estiverem em modo aberto, 
-		return id(self).__repr__()	# Registros e Vetores devem ser printados só como ponteiros
+		return id(self).__repr__()	# Registros e Vetores devem ser printados só como ponteiros de baixo nível
 	def __repr__ (self):
 		return self.__class__.__name__ + '(%s)' %self.__value__.__repr__()
 	def __rpow__ (self,base=1):
 		return self.__value__.__rpow__(__valor__(base))
-	def __rxor__ (self,base=1):
-		return self.__rpow__(__valor__(base))
 	def __pow__ (self,exp = 0):
 		return self.__value__.__pow__(__valor__(exp))
-	def __xor__ (self,exp = 0):
-		return self.__pow__(exp)
+	def __rxor__ (self,x = 1):
+		return self.__value__.__rxor__(__valor__(x))
+	def __xor__ (self, x = 0):
+		return self.__value__.__xor__(__valor__(x))
 	def __ror__ (self, x = False):
 		return self.__value__.__ror__(__valor__(x))
 	def __or__ (self, x = False):
 		return self.__value__.__or__(__valor__(x))
 	def __and__ (self, x = True):
 		return self.__value__.__and__(__valor__(x))
-	def __abs__ (self):
-		return self.__value__.__abs__()
 	def __add__ (self, p = 0):
 		return self.__value__.__add__(__valor__(p))
+	def __abs__ (self):
+		return self.__value__.__abs__()
+	def __pos__ (self):
+		return self.__value__.__pos__()
+	def __neg__ (self):
+		return self.__value__.__neg__()
 	def __sub__ (self, s = 0):
 		return self.__value__.__sub__(__valor__(s))
 	def __mul__ (self, n = 1):
 		return self.__value__.__mul__(__valor__(n))
+	def __rfloordiv__ (self, n = 1):
+		return self.__value__.__rfloordiv__(__valor__(n))
+	def __floordiv__ (self, d = 1):
+		return self.__value__.__floordiv__(__valor__(d))
 	def __truediv__ (self, d = 1):
 		return self.__value__.__truediv__(__valor__(d))
-	def __rtruediv__ (self, d = 1):
-		return self.__value__.__rtruediv__(__valor__(d))
-	#def __rdivmod__ (self, d = 2):
-	#	return vetor(self.__value__.__rdivmod__(__valor__(d)))
-	#def __divmod__ (self, d = 2):
-	#	return vetor(self.__value__.__divmod__(__valor__(d)))
+	def __rtruediv__ (self, n = 1):
+		return self.__value__.__rtruediv__(__valor__(n))
+	def __rdivmod__ (self, n = 1):
+		return self.__value__.__rdivmod__(__valor__(n))
+	def __divmod__ (self, d = 1):
+		return self.__value__.__divmod__(__valor__(d))
 	def __mod__ (self, m = 2):
 		return self.__value__.__mod__(__valor__(m))
 	def __rmod__ (self, m = 2):
@@ -190,14 +182,50 @@ class var:
 	def __rmul__ (self, n = 1):
 		return self.__value__.__rmul__(__valor__(n))
 	def __rsub__ (self, s = 0):
-		return self.__value__.__rsub__(__valor__(p))
-	def __radd__ (self, s = 0):
+		return self.__value__.__rsub__(__valor__(s))
+	def __radd__ (self, p = 0):
 		return self.__value__.__radd__(__valor__(p))
 	def __rand__ (self, x = True):
 		return self.__value__.__rand__(__valor__(x))
-
-	def __call__ (self, *arg,**args):
+	def __rshift__ (self, x = False):
+		return self.__value__.__rshift__(__valor__(x))
+	def __rrshift__ (self,x = False):
+		return self.__value__.__rrshift__(__valor__(x))
+	def __rlshift__ (self,x = 0):
+		return self.__value__.__rlshift__(__valor__(x))
+	def __lshift__ (self, x = 0):
+		return self.__value__.__lshift__(__valor__(x))
+		
+		
+	def __round__ (self, c = 0):
+		return self.__value__.__round__(c)
+	def __trunc__ (self):
+		return self.__value__.__trunc__()
+	def __index__ (self):
+		return self.__value__.__index__()
+	def __invert__ (self):
+		return self.__value__.__invert__()
+		
+	def __floor__ (self):
+		return self.__value__.__floor__()
+	def __float__ (self):
+		return self.__value__.__float__()
+	def __int__ (self):
+		return self.__value__.__int__()
+	def __bool__ (self):
+		return self.__value__ != False;
+	def __ceil__ (self):
+		return self.__value__.__ceil__();
+	def __call__ (self,*arg,**args):
 		return self.__value__.__call__(*arg,**args);
+		
+	def __contains__ (self, c = None):
+		try:
+			return self.__value__.__contains__(c)
+		except AttributeError:
+			return False
+	def __iter__ (self):
+		return self.__value__.__iter__()
 
 	def __init__ (self,valor=None,copia=True):
 		if copia:
@@ -207,6 +235,7 @@ class var:
 		self.__varia__=True # variação de tipo permitida, por enquanto
 		self.__valor__(valor)
 		
+	
 	def __getitem__ (self,i=None):
 		try:
 			return self.__value__.__getitem__(i)
@@ -216,11 +245,33 @@ class var:
 	#	if(self.__value__.__class__ != dict):
 			if self.__varia__:
 				return self.__valor__(matriz(self,i))		
-#	def __setitem__ (self,i=None,v=None):
-	#	pass
+	def __setitem__ (self,i=None,v=None):
+		self.__value__[i] = v
+	
+	def __ge__ (self, t = None):
+		return self.__gt__(t) or self.__eq__(t)
+	def __le__ (self, t = None):
+		return not self.__gt__(t)
+	def __lt__ (self, t = None):
+		return not self.__ge__(t)
+	def __ne__ (self, t = None):
+		return not self.__eq__(t)
+	def __eq__ (self, t = None):
+		if self.__varia__ or self.__value__.__class__ != dict:
+			return self.__value__.__eq__(__valor__(t))
+		return self.__str__().__eq__(str(t))
+	def __gt__ (self, t = None):
+		if self.__value__.__class__ != dict:
+			return self.__value__.__gt__(__valor__(t))
+		return self.__str__().__gt__(str(t))
+	
+		
+	
+		
+	
 while __name__ == '__main__':#True:
 	try:
-		ln = input('>>>')
+		ln = input('>'*3)
 		try:
 			ln = eval(ln)
 		except SyntaxError:
@@ -228,9 +279,9 @@ while __name__ == '__main__':#True:
 		print(escreva(ln))
 	except KeyboardInterrupt:
 	#	if 'S' == input('Gostaria de interromper novamente e sair?')[0].upper():
-		if 'S' in input('Gostaria de interromper novamente e sair?<<<').upper():
+		if 'S' in input('Gostaria de interromper novamente e sair?'+('<'*3)).upper():
 			break
 #	except RecursionError as re:
 #		raise re
 	except Exception as ex:
-		print(type(ex).__name__,ex)
+		print(' '*3 + type(ex).__name__, ex)
