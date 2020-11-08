@@ -113,6 +113,8 @@ class var:
 		except AttributeError:
 			if v == None:
 				return self.__value__
+			if type(v) == type:#v in Tipos:
+				v = v()
 			tip,com = tamanho(v)
 			if tip == self.__tipo__ or permit or self.__varia__:
 				self.__tipo__ = tip
@@ -125,6 +127,13 @@ class var:
 				if type(v[com]) == dict:
 					v[com] = var(v[com],False)
 				self.__setattr__(com,v[com])
+				try:
+					try:
+						self.__setattr__(com,v.__getattribute__(com))
+					except AttributeError:
+						pass
+				except TypeError:
+					pass
 		return v#self.__value__
 
 	def __str__ (self):
@@ -228,7 +237,7 @@ class var:
 		return self.__value__.__iter__()
 
 	def __init__ (self,valor=None,copia=True):
-		if copia:
+		if copia: # na inicialização padrão, é usado o molde dicionário de registros, não seus atributos.
 			valor = copiar(valor)
 		self.__value__=valor
 		self.__tipo__ =Numerico # inicialização por padrão
