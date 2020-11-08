@@ -126,12 +126,11 @@ class var:
 			for com in v:
 				if type(v[com]) == dict:
 					v[com] = var(v[com],False)
-				self.__setattr__(com,v[com])
 				try:
 					try:
 						self.__setattr__(com,v.__getattribute__(com))
 					except AttributeError:
-						pass
+						self.__setattr__(com,v[com])
 				except TypeError:
 					pass
 		return v#self.__value__
